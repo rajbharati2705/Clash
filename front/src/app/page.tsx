@@ -1,13 +1,12 @@
-import { Button } from '@/components/ui/button'
+import HeroSection from '@/components/base/HeroSection'
 import React from 'react'
 
 function App() {
   return (
     <div>
-      <div className='text-red-500'>Home Page</div>
-      <Button>HII Raj</Button>
+     <HeroSection></HeroSection>
     </div>
-    
+
   )
 }
 
