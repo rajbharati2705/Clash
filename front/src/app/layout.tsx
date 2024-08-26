@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
-import { Inter as FontSans } from "next/font/google"
- 
-import { cn } from "@/lib/utils"
- 
+import { Inter as FontSans } from "next/font/google";
+
+import { cn } from "@/lib/utils";
+import { Toaster } from "@/components/ui/sonner";
+
 const fontSans = FontSans({
   subsets: ["latin"],
   variable: "--font-sans",
-})
+});
 
 export const metadata: Metadata = {
   title: "Clash App",
@@ -22,10 +23,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={cn(
+      <body
+        className={cn(
           "min-h-screen bg-slate-50 font-sans antialiased",
           fontSans.variable
-        )}>{children}</body>
+        )}
+      >
+        <Toaster richColors position="top-right"/>
+        {children}
+      </body>
     </html>
   );
 }
