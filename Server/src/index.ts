@@ -2,8 +2,8 @@ import express, { Application, Request, Response } from "express";
 import "dotenv/config";
 import ejs, { name } from "ejs";
 import path from "path";
-import { fileURLToPath } from "url";
 import Routes from "./routes/index.js"
+import { fileURLToPath } from "url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const app: Application = express();
@@ -31,11 +31,11 @@ app.use(Routes);
 
 app.get("/", async (req: Request, res: Response) => {
   try {
+    
+    // await sendEmail("rajbharati2705@yopmail.com", "Testing SMTP", html);
     const html = await ejs.renderFile(__dirname + `/views/emails/welcome.ejs`, {
       name: "Raj",
     });
-    // await sendEmail("rajbharati2705@yopmail.com", "Testing SMTP", html);
-
     await emailQueue.add(emailQueueName,{to:"cepow18144@kwalah.com",subject:"Testing queue",body:html})
     return res.json({ msg: "Email sent successfully.." });
   } catch (error) {
