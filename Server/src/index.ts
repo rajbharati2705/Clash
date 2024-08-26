@@ -1,6 +1,6 @@
 import express, { Application, Request, Response } from "express";
 import "dotenv/config";
-import ejs from "ejs";
+import ejs, { name } from "ejs";
 import path from "path";
 import { fileURLToPath } from "url";
 import { sendEmail } from "./config/mail.js";
@@ -31,7 +31,9 @@ app.get("/", async (req: Request, res: Response) => {
     const html = await ejs.renderFile(__dirname + `/views/emails/welcome.ejs`, {
       name: "Raj",
     });
-    await sendEmail("rajbharati2705@yopmail.com", "Testing SMTP", html);
+    // await sendEmail("rajbharati2705@yopmail.com", "Testing SMTP", html);
+
+    await emailQueue.add(emailQueueName,{to:"cepow18144@kwalah.com",subject:"Testing queue",body:html})
     return res.json({ msg: "Email sent successfully.." });
   } catch (error) {
     console.error("Error:", error);
@@ -39,6 +41,9 @@ app.get("/", async (req: Request, res: Response) => {
   }
 });
 
+//queues
+import "./jobs/index.js";
+import { emailQueue, emailQueueName } from "./jobs/EmailJob.js";
 
 app.listen(PORT, () => {
   console.log(`Server started at port ${PORT}`);
